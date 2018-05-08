@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 public class CrearPersonas extends AppCompatActivity {
+    String id;
     private EditText txtCedula;
     private EditText txtNombre;
     private EditText txtApellido;
@@ -49,7 +50,9 @@ public class CrearPersonas extends AppCompatActivity {
         apelli = txtApellido.getText().toString();
         sexo = cmbSexo.getSelectedItemPosition();
 
-        Persona p = new Persona(foto,ced,nombre,apelli,sexo);
+        id = Datos.getId();
+
+        Persona p = new Persona(id,foto,ced,nombre,apelli,sexo);
         p.guardar();
 
         Snackbar.make(v, R.string.guardarr, Snackbar.LENGTH_LONG)
