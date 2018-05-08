@@ -58,7 +58,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/cmbSexo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -72,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="Guardar"
             android:text="@string/guardar" />
 
         <Button
@@ -80,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="clean"
             android:text="@string/limpiar" />
     </LinearLayout>
 </LinearLayout>

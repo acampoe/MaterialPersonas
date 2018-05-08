@@ -13,4 +13,5 @@
         <item>@string/masculino</item>
         <item>@string/femenino</item>
     </string-array>
+    <string name="guardarr">Persona Guardada Exitosamente!</string>
 </resources>
