@@ -37,13 +37,14 @@ public class DetallePersona extends AppCompatActivity {
         fotoDetalle = findViewById(R.id.imgFoto);
         sexoDetalle = this.getResources().getStringArray(R.array.sexo);
         i = getIntent();
-        id = bundle.getString("id");
+
         bundle = i.getBundleExtra("datos");
         cedula = bundle.getString("cedula");
         nombre = bundle.getString("nombre");
         apellido = bundle.getString("apellido");
         sexo = bundle.getInt("sexo");
         foto = bundle.getInt("foto");
+        id = bundle.getString("id");
 
         txtCedulaDetalle.setText(cedula);
         txtNombreDetalle.setText(nombre);
@@ -58,7 +59,7 @@ public class DetallePersona extends AppCompatActivity {
         String positivo,negativo;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.eliminar));
-        builder.setMessage(getResources().getString(R.string.positivo));
+        builder.setMessage(getResources().getString(R.string.pregunta_eliminacion));
         positivo = getResources().getString(R.string.positivo);
         negativo = getResources().getString(R.string.negativo);
 
