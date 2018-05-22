@@ -37,4 +37,12 @@ public class Datos {
     public static String getId(){
         return databaseReference.push().getKey();
     }
+
+    public static void setPersona(ArrayList<Persona> persons){
+        Datos.personas = persons;
+    }
+
+    public static void eliminarPersonas(Persona p){
+        databaseReference.child(db).child(p.getId()).removeValue();
+    }
 }

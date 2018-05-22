@@ -12,14 +12,22 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
-public class Principal extends AppCompatActivity {
+public class Principal extends AppCompatActivity implements AdaptadorPersona.OnPersonaClickListener{
     private RecyclerView lstOpciones;
     private Intent i;
     private ArrayList<Persona> personas;
     private AdaptadorPersona adapter;
     private LinearLayoutManager llm;
+    private String db = "Personas";
+    private DatabaseReference dataReference;
 
 
     @Override
@@ -30,14 +38,35 @@ public class Principal extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         lstOpciones = findViewById(R.id.lstOpciones);
-        personas = Datos.obtener();
+        personas = new ArrayList<>();
 
         llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new AdaptadorPersona(personas);
+        adapter = new AdaptadorPersona(personas, this);
 
         lstOpciones.setLayoutManager(llm);
         lstOpciones.setAdapter(adapter);
+
+        dataReference = FirebaseDatabase.getInstance().getReference();
+        dataReference.child(db).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                personas.clear();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        Persona P = snapshot.getValue(Persona.class);
+                        personas.add(P);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Datos.setPersona(personas);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void crearPersonas(View v){
@@ -48,4 +77,18 @@ public class Principal extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onPersonaClick(Persona p) {
+        Intent i = new Intent(Principal.this,DetallePersona.class);
+        Bundle b = new Bundle();
+        b.putString("id",p.getId());
+        b.putString("cedula",p.getCedula());
+        b.putString("nombre",p.getNombre());
+        b.putString("apellido",p.getApellido());
+        b.putInt("sexo",p.getSexo());
+        b.putInt("foto",p.getFoto());
+
+        i.putExtra("datos",b);
+        startActivity(i);
+    }
 }

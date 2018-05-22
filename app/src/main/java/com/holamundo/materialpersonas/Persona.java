@@ -21,6 +21,14 @@ public class Persona {
         this.sexo = sexo;
     }
 
+    public Persona(){
+
+    }
+
+    public Persona(String id){
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
@@ -72,4 +80,6 @@ public class Persona {
     public void guardar(){
         Datos.guardar(this);
     }
+
+    public void eliminar(){ Datos.eliminarPersonas(this); }
 }
